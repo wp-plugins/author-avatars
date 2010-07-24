@@ -135,11 +135,11 @@ class AuthorAvatarsWidget extends MultiWidget
 	function control_update($new_instance, $old_instance)
 	{
 		$instance = $old_instance;		
-		$instance['title'] = wp_specialchars( $new_instance['title'] );
-		$instance['hiddenusers'] = wp_specialchars ( $new_instance['hiddenusers'] );
+		$instance['title'] = AA_esc_html( $new_instance['title'] );
+		$instance['hiddenusers'] = AA_esc_html( $new_instance['hiddenusers'] );
 		$instance['roles'] = (array) $new_instance['roles'];
 		$instance['blogs'] = (array) $new_instance['blogs'];
-		$instance['group_by'] = wp_specialchars ($new_instance['group_by']);
+		$instance['group_by'] = AA_esc_html($new_instance['group_by']);
 		$instance['display'] = (array) $new_instance['display'];
 		
 		if (empty($instance['blogs'])) $instance['blogs'] = $this->defaults['blogs'];
@@ -185,8 +185,11 @@ class AuthorAvatarsWidget extends MultiWidget
 		$adv_left .= $form->renderFieldLimit($instance['display']['limit'], 'display][limit');
 		$adv_left .= $form->renderFieldMinPostCount($instance['display']['min_post_count'], 'display][min_post_count');
 		$adv_left .= $form->renderFieldHiddenUsers($instance['hiddenusers']);
-		
-		$adv_right  = $form->renderFieldBlogs($instance['blogs']);
+		if  (AA_is_wpmu()){
+			$adv_right  = $form->renderFieldBlogs($instance['blogs']);
+		}else{
+			$adv_right  = "";
+		}
 		$adv_right .= $form->renderFieldGroupBy($instance['group_by']);
 		
 		$advanced  = '<h5>'. __('Advanced', 'author-avatars') .'</h5>';

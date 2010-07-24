@@ -1,4 +1,4 @@
-<?php  if(!class_exists('MultiWidget')):
+<?php  if(!class_exists('xMultiWidget')):
 
 /*
 Copyright (c) 2008 Alex Tingle.
@@ -326,8 +326,8 @@ class ExampleMultiWidget extends MultiWidget
     if( !isset($new_instance['title']) ) // user clicked cancel
         return false;
     $instance = $old_instance;
-    $instance['title'] = wp_specialchars( $new_instance['title'] );
-    $instance['content'] = wp_specialchars( $new_instance['content'] );
+    $instance['title'] = esc_html( $new_instance['title'] );
+    $instance['content'] = esc_html( $new_instance['content'] );
     return $instance;
   }
 

@@ -24,6 +24,7 @@ class AuthorAvatars {
 			$this->init_widgets();
 			$this->init_shortcodes();
 			$this->init_controlpanels();
+			$this->init_AuthorAvatarsImageSpriting();
 		}
 	}
 
@@ -120,6 +121,17 @@ class AuthorAvatars {
 
 		$wpmu_settings = new AuthorAvatarsSitewideAdminPanel();
 	}
+	
+	/**
+	 * Init AuthorAvatarsImageSpriting
+	 */
+	function init_AuthorAvatarsImageSpriting() {
+		// include necessary file(s).
+		require_once('AuthorAvatarsImageSpriting.class.php');
+
+		$AuthorAvatarsImageSpriting = new AuthorAvatarsImageSpriting();
+	}	
+	
 
 	/**
 	 * Number of the currently installed version of the plugin.
