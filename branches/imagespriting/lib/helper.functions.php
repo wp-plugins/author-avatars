@@ -102,4 +102,13 @@ function is_super_admin( $user_id = '' ) {
 }
 endif;
 
+function AA_esc_html($value){
+	global $wpmu_version, $wp_version;
+	if($wp_version > 2.8){
+		return esc_html($value);
+	}else{
+		return wp_specialchars($value);
+	}
+}
+
 ?>
