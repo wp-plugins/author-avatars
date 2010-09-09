@@ -67,22 +67,23 @@ class AuthorAvatars {
 	 */
 	function register_resources() {
 		$aa_ver = AUTHOR_AVATARS_VERSION;
-
+		$plugin_dir = basename(dirname(dirname(__FILE__)));
+		
 		// make sure styles are written on wp_head action
 		add_action('wp_head', 'wp_print_styles');
 
 		// styles
-		wp_register_style('author-avatars-widget', WP_PLUGIN_URL . '/author-avatars/css/widget.css', array(), $aa_ver);
-		wp_register_style('author-avatars-shortcode', WP_PLUGIN_URL . '/author-avatars/css/shortcode.css', array(), $aa_ver);
-		wp_register_style('admin-form', WP_PLUGIN_URL . '/author-avatars/css/admin-form.css', array(), $aa_ver);
+		wp_register_style('author-avatars-widget', WP_PLUGIN_URL . '/'. $plugin_dir .'/css/widget.css', array(), $aa_ver);
+		wp_register_style('author-avatars-shortcode', WP_PLUGIN_URL . '/'. $plugin_dir .'/css/shortcode.css', array(), $aa_ver);
+		wp_register_style('admin-form', WP_PLUGIN_URL . '/'. $plugin_dir .'/css/admin-form.css', array(), $aa_ver);
 
 		// scripts
-		wp_register_script('jquery-ui-resizable', WP_PLUGIN_URL . '/author-avatars/js/jquery-ui.resizable.js', array('jquery-ui-core'), '1.5.3');
+		wp_register_script('jquery-ui-resizable', WP_PLUGIN_URL . '/'. $plugin_dir .'/js/jquery-ui.resizable.js', array('jquery-ui-core'), '1.5.3');
 
-		wp_register_script('author-avatars-form', WP_PLUGIN_URL . '/author-avatars/js/form.js', array('jquery-ui-resizable'), $aa_ver);
-		wp_register_script('author-avatars-widget-admin', WP_PLUGIN_URL . '/author-avatars/js/widget.admin.js', array('author-avatars-form'), $aa_ver);
+		wp_register_script('author-avatars-form', WP_PLUGIN_URL . '/'. $plugin_dir .'/js/form.js', array('jquery-ui-resizable'), $aa_ver);
+		wp_register_script('author-avatars-widget-admin', WP_PLUGIN_URL . '/'. $plugin_dir .'/js/widget.admin.js', array('author-avatars-form'), $aa_ver);
 		wp_register_script('tinymce-popup', '/wp-includes/js/tinymce/tiny_mce_popup.js', array(), function_exists('mce_version') ? mce_version() : false);
-		wp_register_script('author-avatars-tinymce-popup', WP_PLUGIN_URL .'/author-avatars/js/tinymce.popup.js', array('author-avatars-form', 'jquery-ui-tabs'), $aa_ver);
+		wp_register_script('author-avatars-tinymce-popup', WP_PLUGIN_URL .'/'. $plugin_dir .'/js/tinymce.popup.js', array('author-avatars-form', 'jquery-ui-tabs'), $aa_ver);
 	}
 
 	/**
@@ -126,6 +127,26 @@ class AuthorAvatars {
 	 * Init AuthorAvatarsImageSpriting
 	 */
 	function init_AuthorAvatarsImageSpriting() {
+		// first task do we have a table to store Image metadate in 
+		 global $wpdb;
+   	
+		 $table_name = $wpdb->prefix . "AuthorAvatars";
+		   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+			  
+			  $sql = "CREATE TABLE " . $table_name . " (
+			  id mediumint(9) NOT NULL AUTO_INCREMENT,
+			  url VARCHAR(255) NOT NULL,
+			  size mediumint(9) NOT NULL,
+			  offset mediumint(9) NOT NULL,
+			  INDEX (url),
+			  UNIQUE KEY id (id)
+			);";
+
+		  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		  dbDelta($sql);
+
+		   }
+		
 		// include necessary file(s).
 		require_once('AuthorAvatarsImageSpriting.class.php');
 
