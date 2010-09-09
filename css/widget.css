@@ -1,6 +1,11 @@
 .multiwidget_author_avatars .author-list {
 	text-align: center;
 }
+/* needed for image Spriting */
+.multiwidget_author_avatars .author-list .avatar div {
+	margin-left:auto;
+	margin-right:auto;
+}
 .multiwidget_author_avatars .author-list .user {
 	padding: 0.2em;
 	display: inline;
@@ -22,6 +27,6 @@
 	float: left;
 	margin: 0.2em 0.3em 0.2em 0;
 }
-.multiwidget_author_avatars .author-list .avatar img {
+.multiwidget_author_avatars .author-list .avatar img  {
 	float: none !important; /* is set to left on some themes */
 }
