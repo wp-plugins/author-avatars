@@ -131,8 +131,7 @@ class AuthorAvatars {
 		 global $wpdb;
    	
 		 $table_name = $wpdb->prefix . "AuthorAvatars";
-		   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
-			  
+		   if(strcmp ($wpdb->get_var("show tables like '$table_name'"),$table_name) < 0) {
 			  $sql = "CREATE TABLE " . $table_name . " (
 			  id mediumint(9) NOT NULL AUTO_INCREMENT,
 			  url VARCHAR(255) NOT NULL,
