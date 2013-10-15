@@ -26,6 +26,7 @@ Both shortcode and widget can be configured to...
 *   Optionally show a user's name or biography
 *   Show users from the current blog, all blogs or a selection of blogs (on WPMU/Multisite)
 *   Group users by their blog (when showing from multiple blogs), and show the blog name above each grouping (experimental feature).
+*	Supports users from co-authors,BBpress and BudyPress
 
 * the shortcode can page the avatars for large sets add a page_size to the shortcode e.g. "page_size=30"
 
