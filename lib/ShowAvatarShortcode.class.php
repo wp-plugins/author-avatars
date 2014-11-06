@@ -39,7 +39,8 @@ class ShowAvatarShortcode {
 		if (!empty($atts['avatar_size'])) {
 			$avatar_size = intval($atts['avatar_size']);
 		}
-		if (!$avatar_size) $avatar_size = false;
+		if (!$avatar_size) 
+			$avatar_size = false;
 		
 		// get alignment
 		if (!empty($atts['align'])) {
@@ -75,7 +76,7 @@ class ShowAvatarShortcode {
 				$isUser = false; 
 			 }
 		}	 
-			 if (isUser){
+			 if ($isUser){
 				$all_meta_for_user = get_user_meta( $id );	 
 				if (count ($all_meta_for_user) == 0){
 					$isUser = false; 
